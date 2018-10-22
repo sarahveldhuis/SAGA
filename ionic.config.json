@@ -1,0 +1,7 @@
+{
+  "name": "SAGA",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

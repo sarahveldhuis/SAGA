@@ -1,0 +1,16 @@
+page-beginning {
+    .bg-image{
+        background-image: url('../assets/imgs/beginning.jpg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
+    #titulo{
+        position: absolute;
+        top: 36%;
+        font-size: 3rem;
+        width: 100%;
+        font-weight: bold;
+        color: white;
+    }
+}
