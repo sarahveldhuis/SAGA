@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Tabs } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { UserserviceProvider } from '../../providers/userservice/userservice';
 
-import { RegisterPage } from './../register/register';
+import { SignupPage } from './../signup/signup';
 import { TabsPage } from './../tabs/tabs';
 import { ForgetPage } from './../forget/forget';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /**
  * Generated class for the LoginPage page.
@@ -19,19 +21,36 @@ import { ForgetPage } from './../forget/forget';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    loginForm: FormGroup;
+
+    constructor(
+        public navCtrl: NavController,
+        public formBuilder: FormBuilder,
+        public navParams: NavParams,
+        public userService: UserserviceProvider)
+    {
+        this.loginForm = this.formBuilder.group({
+            email: ['', [Validators.required, Validators.minLength(3)]],
+            senha: ['', [Validators.required, Validators.minLength(6)]]
+        });
   }
 
-  forgetPage = () => {
+  forgetPage(){
     this.navCtrl.push(ForgetPage);
   }
 
-  homePage () {
-    this.navCtrl.setRoot(TabsPage);
+    onLogIn() {
+        console.log(this.loginForm.value);
+        this.userService.logIn(this.loginForm.value).then(() => {
+            this.navCtrl.setRoot(TabsPage);
+        }).catch((error) => {
+            console.log("error:" + error.toString());
+        })
+        
   }
 
-  register = ()=>{
-    this.navCtrl.push(RegisterPage)
+  toSignup(){
+    this.navCtrl.push(SignupPage)
   }
 
 }
